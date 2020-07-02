@@ -34,12 +34,11 @@ jobs:
       - name: Setup cpplint
         run : |
           pip install --user cpplint
-# export PATH=$PATH:~/.local/bin/
+          export PATH=$PATH:~/.local/bin/
 
       - name: Lint Files
         run : |
-          cpplint ./tests/* 
-          cpplint ./src/*
+          cpplint ./tests/* ./src/*
 
 
 
