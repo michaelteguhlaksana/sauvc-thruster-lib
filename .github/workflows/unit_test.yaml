@@ -1,1 +1,46 @@
+name: Test All src Files
+
+on: 
+  push:
+    branches: [feat-imu-2nd-try]
+  pull_request:
+    branches: [feat-imu-2nd-try]
+
+jobs:
+  setup_env:
+    name: Test All Files
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Compile Test Files
+        run : |
+          cd tests
+          cmake .
+          cmake --build .
+
+      - name: Run Unit Test
+        run : |
+          ./sauvc-thruster-lib_test
+
+  style_lint:
+    name: CppLint All Files
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup cpplint
+        run : pip install cpplint
+
+      - name: Lint Files
+        run : ./cpplint.py ./tests/* ./src/*
+
+
+
+
+
+
+
 
