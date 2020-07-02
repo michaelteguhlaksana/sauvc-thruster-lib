@@ -35,7 +35,7 @@ jobs:
         run : pip install cpplint
 
       - name: Lint Files
-        run : ./cpplint.py ./tests/* ./src/*
+        run : cpplint ./tests/* ./src/*
 
 
 
