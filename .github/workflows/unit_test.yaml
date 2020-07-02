@@ -32,10 +32,14 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Setup cpplint
-        run : pip install cpplint
+        run : |
+          pip install cpplint
+          export PATH=$PATH:~/.local/bin/
 
       - name: Lint Files
-        run : cpplint ./tests/* ./src/*
+        run : |
+          cpplint ./tests/* 
+          cpplint ./src/*
 
 
 
