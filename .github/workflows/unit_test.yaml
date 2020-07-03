@@ -14,11 +14,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Compile Test Files
+      - name: Compile Files
         run : |
-          cd tests
-          cmake .
-          cmake --build .
+          mkdir build
+          cd build/
+          cmake ..
+          make all
 
       - name: Run Unit Test
         run : |
