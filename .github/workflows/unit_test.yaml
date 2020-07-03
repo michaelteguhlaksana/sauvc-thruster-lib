@@ -22,6 +22,7 @@ jobs:
           cd build/
           cmake ..
           make all
+          ls
 
       - name: Run Unit Test
         run : |
