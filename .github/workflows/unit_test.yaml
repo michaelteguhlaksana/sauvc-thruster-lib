@@ -22,11 +22,11 @@ jobs:
           cd build/
           cmake ..
           make all
-          ls
+
 
       - name: Run Unit Test
         run : |
-          tests/sauvc-thruster-lib_test
+          ./tests/sauvc-thruster-lib_test
 
   style_lint:
     name: CppLint All Files
