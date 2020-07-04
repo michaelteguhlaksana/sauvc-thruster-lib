@@ -27,7 +27,8 @@ jobs:
 
       - name: Run Unit Test
         run : |
-          ./tests/sauvc-thruster-lib_test
+          cd tests
+          ./sauvc-thruster-lib_test
 
   style_lint:
     name: CppLint All Files
