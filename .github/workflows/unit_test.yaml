@@ -28,7 +28,7 @@ jobs:
 
       - name: Run Unit Test
         run : |
-          cd tests
+          cd build/tests
           echo $PWD
           ls
           ldd ./sauvc-thruster-lib_test
