@@ -22,16 +22,10 @@ jobs:
           cd build/
           cmake ..
           make all
-          find ./ -type f -name "sauvc-thruster-lib_test"
-          echo $PWD
-
 
       - name: Run Unit Test
         run : |
           cd build/tests
-          echo $PWD
-          ls
-          ldd ./sauvc-thruster-lib_test
           ./sauvc-thruster-lib_test
 
   style_lint:
@@ -49,8 +43,8 @@ jobs:
       - name: Setup cpplint
         run : |
           python -m pip install --upgrade pip
-          pip install --user cpplint
-# export PATH=$PATH:~/.local/bin/
+          sudo pip install --user cpplint
+          export PATH=$PATH:~/.local/bin/
 
       - name: Lint Files
         run : |
