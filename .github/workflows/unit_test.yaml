@@ -35,16 +35,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Setup Python 2.7
-        uses: actions/setup-python@v2
-        with :
-          python-version: 2.7
-
       - name: Setup cpplint
         run : |
           python -m pip install --upgrade pip
-          sudo pip install --user cpplint
+          sudo pip install cpplint
           export PATH=$PATH:~/.local/bin/
+          ls -l /usr/local/bin/cpplint
 
       - name: Lint Files
         run : |
