@@ -1,10 +1,6 @@
 name: Test All src Files
 
-on: 
-  push:
-    branches: [feat-imu-2nd-try]
-  pull_request:
-    branches: [feat-imu-2nd-try]
+on: [push, pull_branches]
 
 jobs:
   setup_env:
