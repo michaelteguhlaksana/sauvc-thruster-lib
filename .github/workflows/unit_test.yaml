@@ -1,6 +1,6 @@
 name: Test All src Files
 
-on: [push, pull_branches]
+on: [push, pull_request]
 
 jobs:
   setup_env:
