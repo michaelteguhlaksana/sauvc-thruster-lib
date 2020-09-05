@@ -8,7 +8,8 @@
 class ThrusterAggregator {
 private:
     std::map <int, Thruster> thruster_id_to_instance_map;
-    std::map <std::string, std::map<int, int>> motion_to_thruster_id_to_esc_input_map;
+    std::map <int, int> id_to_esc_map;
+    std::map <int, int> id_to_esc_map_prev;
     std::map<int, int> thruster_id_to_stabilised_speed_map;
     std::map<int, int> thruster_id_to_actual_speed_map;
     /**
@@ -38,17 +39,52 @@ public:
     bool setup();
 
     /**
-     * A function to move thrusters according to a motion.
-     * @param motion {string} indicates the motion to for thrusters to produce
+     * A function to move thrusters according to the map.
      * @return {bool} whether the execution of movement was successful or not
      */
-    bool move(const std::string& motion);
+    bool move();
 
     /**
      * A function to stop all thrusters.
      * @return {bool} whether the stopping was successful or not.
      */
     bool stop();
+
+    /**
+     * A function to control the auv to go forward or backward.
+     * @return {bool} whether it was successful or not.
+     */
+    bool go(GoMotion motion);
+
+    /**
+     * A function to control the auv to go left or right.
+     * @return {bool} whether it was successful or not.
+     */
+    bool translate(TranslateMotion motion);
+
+    /**
+     * A function to control the auv to go up or down.
+     * @return {bool} whether it was successful or not.
+     */
+    bool vertical(VerticalMotion motion);
+
+    /**
+     * A function to control the auv to pitch forward or backward.
+     * @return {bool} whether it was successful or not.
+     */
+    bool pitch(PitchMotion motion);
+
+    /**
+     * A function to control the auv to roll left or right.
+     * @return {bool} whether it was successful or not.
+     */
+    bool roll(RollMotion motion);
+
+    /**
+     * A function to control the auv to rotate left or right.
+     * @return {bool} whether it was successful or not.
+     */
+    bool rotate(RotateMotion motion);
 
     /**
      * A function to stabilise thrusters.

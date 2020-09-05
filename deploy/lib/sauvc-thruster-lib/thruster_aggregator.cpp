@@ -69,17 +69,89 @@ std::map<std::string, std::map<int, int>> ThrusterAggregator::load_predefined_mo
  * @param motion {string} the motion for thrusters to produce
  * @return {bool} whether the execution of movement was successful or not
  */
-bool ThrusterAggregator::move(const std::string& motion) {
-    if (this->motion_to_thruster_id_to_esc_input_map.find(motion) != this->motion_to_thruster_id_to_esc_input_map.end()) {
-        for (const auto &[thruster_id_to_run, esc_input]: this->motion_to_thruster_id_to_esc_input_map[motion]) {
-            this->thruster_id_to_instance_map[thruster_id_to_run].run(esc_input);
-            this->thruster_id_to_actual_speed_map[thruster_id_to_run] = Thruster::get_safe_esc_input(esc_input);
-        }
-        return true;
+bool ThrusterAggregator::move()
+{
+  if (this->id_to_esc_map != this->id_to_esc_map_prev)
+  {
+    this->id_to_esc_map_prev = this->id_to_esc_map;
+    for (const auto &[id, esc]: this->id_to_esc_map)
+    {
+      this->thruster_id_to_instance_map[id].run(esc);
+      this->thruster_id_to_actual_speed_map[id] = Thruster::get_safe_esc_input(esc);
     }
-    else {
-        return false;
+  }
+
+  return true;
+}
+
+bool ThrusterAggregator::go(GoMotion motion)
+{
+  switch (motion)
+  {
+    case FORWARD:
+    {
+      //update esc map
+      for (auto &[id, esc]: ID_TO_ESC_GO_FORWARD)
+      {
+        this->id_to_esc_map[id] = esc;
+      }
+      break;
     }
+    case BACKWARD:
+    {
+      //update esc map
+      for (auto &[id, esc]: ID_TO_ESC_GO_BACKWARD)
+      {
+        this->id_to_esc_map[id] = esc;
+      }
+      break;
+    }
+    case STOP:
+    {
+      //update esc map
+      for (auto &[id, esc]: ID_TO_ESC_GO_STOP)
+      {
+        this->id_to_esc_map[id] = esc;
+      }
+      break;
+    }
+
+  }
+}
+
+bool ThrusterAggregator::vertical(VerticalMotion motion)
+{
+  switch (motion)
+  {
+    case SUBMERGE:
+    {
+      //update esc map
+      for (auto &[id, esc]: ID_TO_ESC_VERTICAL_SUBMERGE)
+      {
+        this->id_to_esc_map[id] = esc;
+      }
+      break;
+    }
+    case SURFACE:
+    {
+      //update esc map
+      for (auto &[id, esc]: ID_TO_ESC_VERTICAL_SURFACE)
+      {
+        this->id_to_esc_map[id] = esc;
+      }
+      break;
+    }
+    case STOP:
+    {
+      //update esc map
+      for (auto &[id, esc]: ID_TO_ESC_VERTICAL_STOP)
+      {
+        this->id_to_esc_map[id] = esc;
+      }
+      break;
+    }
+
+  }
 }
 
 /**
@@ -89,7 +161,7 @@ bool ThrusterAggregator::move(const std::string& motion) {
 bool ThrusterAggregator::stop() {
     for (const auto &[id, thruster]: thruster_id_to_instance_map) {
         thruster.stop();
-        this->thruster_id_to_actual_speed_map[id] = int(ESC_INPUT_FOR_STOP_SIGNAL);
+        this->thruster_id_to_actual_speed_map[id] = int(ESC_INPUT_STOP);
     }
     return true;
 }

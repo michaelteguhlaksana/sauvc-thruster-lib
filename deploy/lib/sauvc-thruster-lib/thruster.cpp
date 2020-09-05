@@ -49,7 +49,7 @@ bool Thruster::run(int esc_input) const {
  * @return {bool} indicates whether the stopping was successful or not
  */
 bool Thruster::stop() const {
-    this->run(ESC_INPUT_FOR_STOP_SIGNAL);
+    this->run(ESC_INPUT_STOP);
     return true;
 }
 
